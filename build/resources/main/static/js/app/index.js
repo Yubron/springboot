@@ -42,7 +42,6 @@ var main = {
         };
 
         var id = $('#id').val();
-        alert(id);
         $.ajax({
             type:'PUT',
             url: '/api/v1/posts/'+id,

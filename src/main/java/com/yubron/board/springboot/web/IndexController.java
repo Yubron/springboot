@@ -5,7 +5,6 @@ import com.yubron.board.springboot.config.auth.dto.SessionUser;
 import com.yubron.board.springboot.service.PostsService;
 import com.yubron.board.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.ILoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
