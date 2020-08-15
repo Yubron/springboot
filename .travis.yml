@@ -15,7 +15,7 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r yubron-springboot-webservice
+  - zip -r yubron-springboot-webservice *
   - mkdir -p deploy
   - mv yubron-springboot-webservice.zip deploy/yubron-springboot-webservice.zip
 
