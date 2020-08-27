@@ -1,0 +1,25 @@
+{{>layout/header}}
+<div class="container">
+    <div class="row">
+        {{>layout/sidebar}}
+        <div class="col-md-9">
+            <div class="card-group">
+                {{#posts}}
+                <div class="col-md-4" style="padding:20px">
+                    <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="/posts/detail/{{id}}">{{title}}</a></h5>
+                            <p>가격 : {{price}} <b>원</b></p>
+                            <p align="right"> {{modifiedDate}} </p>
+                        </div>
+                    </div>
+                </div>
+                {{/posts}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{>layout/footer}}
