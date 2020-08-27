@@ -22,7 +22,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {
-
+        model.addAttribute("posts",postsService.findAllDesc());
 
         if(user != null){
             model.addAttribute("userName",user.getName());
@@ -31,42 +31,16 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/loginPage")
-    public String loginPage(Model model) {
-        model.addAttribute("msg", "Login Please");
-        model.addAttribute("url", "login");
-
-        return "login";
-    }
-
     @GetMapping("/posts/save")
-    public String postsSave(Model model,@LoginUser SessionUser user) {
-        model.addAttribute("userName",user.getName());
+    public String postsSave() {
         return "posts-save";
     }
 
-    @GetMapping("/posts/detail/{id}")
-    public String postSearch(@PathVariable Long id, Model model, @LoginUser SessionUser user){
-        PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("userName", user.getName());
-        model.addAttribute("post", dto);
-
-        return "posts-detail";
-    }
-
     @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model, @LoginUser SessionUser user){
+    public String postsUpdate(@PathVariable Long id, Model model){
         PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("userName", user.getName());
         model.addAttribute("post", dto);
 
         return "posts-update";
-    }
-
-    @GetMapping("/posts/list")
-    public String postsList(Model model,@LoginUser SessionUser user) {
-        model.addAttribute("userName",user.getName());
-        model.addAttribute("posts",postsService.findAllDesc());
-        return "posts-list";
     }
 }
