@@ -1,9 +1,6 @@
 var main = {
     init : function() {
         var _this = this;
-
-
-
         $('#btn-save').on('click', function(){
             _this.save();
         });
@@ -15,19 +12,11 @@ var main = {
         $('#btn-delete').on('click',function(){
             _this.delete();
         });
-        $('#btn-cell').on('click',function(){
-            location.href = "/posts/save";
-        });
-        $('#btn-list').on('click',function(){
-            location.href = "/posts/list";
-        });
     },
 
     save : function() {
         var data = {
             title : $('#title').val(),
-            price : $('#price').val(),
-            count : $('#count').val(),
             author : $('#author').val(),
             content : $('#content').val()
         };
