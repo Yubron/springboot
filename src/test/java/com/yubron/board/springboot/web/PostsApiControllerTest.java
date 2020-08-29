@@ -62,13 +62,15 @@ public class PostsApiControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "GUEST")
     public void Posts_등록된다() throws Exception{
         //given
         String title = "title";
         String content = "content";
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                                             .title(title)
+                                            .price(1000)
+                                            .count(5)
                                             .content(content)
                                             .author("author")
                                             .build();
@@ -95,11 +97,13 @@ public class PostsApiControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "GUEST")
     public void Posts_수정된다() throws Exception{
         //given
         Posts savedPosts = postsRepository.save(Posts.builder()
                                                 .title("title")
+                                                .price(1000)
+                                                .count(5)
                                                 .content("content")
                                                 .author("author")
                                                 .build());
