@@ -5,4 +5,34 @@
     <meta http-equiv="Content-Type" content="text/html; charset = UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-<body>
+
+<body style="padding-left:20%; padding-right:20%;">
+<div class="d-flex justify-content-end" style="padding-top:1%;">
+    {{#userName}}
+        <button type="button" class="btn btn-secondary">{{userName}}</button>
+
+        <button type="button" class="btn btn-warning" style="margin-left:1%" disabled > 100000 point </button>
+        <a href="/logout" class="btn btn-info active" role="button"  style="margin-left:1%">Logout</a>
+    {{/userName}}
+    {{^userName}}
+        <a href="/oauth2/authorization/google" class="btn btn-secondary active" role="button" style="margin-left:1%">
+            Google Login
+        </a>
+        <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button" style="margin-left:1%">
+            Naver Login
+        </a>
+    {{/userName}}
+    <a href="" class="btn btn-info active" role="button" style="margin-left:1%;" >내 상점</a>
+</div>
+<hr>
+
+<nav class="navbar navbar-light bg-light">
+    <a href="/" class="btn btn-info active" role="button">번개장터</a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" style="width:500px" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-2" type="submit">Search</button>
+    </form>
+    <a href="/posts/save" class="btn btn-info active" role="button">판매하기</a>
+</nav>
+
+</body>
