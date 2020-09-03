@@ -10,7 +10,8 @@ public class PostsResponseDto {
     private int price;
     private int count;
     private String content;
-    private String author;
+    private String userName;
+    private String userEmail;
 
     public PostsResponseDto(Posts entity){
         this.id = entity.getId();
@@ -18,6 +19,7 @@ public class PostsResponseDto {
         this.price = entity.getPrice();
         this.count = entity.getCount();
         this.content = entity.getContent();
-        this.author = entity.getAuthor();
+        this.userName = entity.getUserName();
+        this.userEmail = entity.getUserEmail();
     }
 }

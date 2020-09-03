@@ -72,7 +72,8 @@ public class PostsApiControllerTest {
                                             .price(1000)
                                             .count(5)
                                             .content(content)
-                                            .author("author")
+                                            .userName("yoo jin soo")
+                                            .userEmail("yubron@gmail.com")
                                             .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts";
@@ -105,7 +106,8 @@ public class PostsApiControllerTest {
                                                 .price(1000)
                                                 .count(5)
                                                 .content("content")
-                                                .author("author")
+                                                .userName("yoo jin soo")
+                                                .userEmail("yubron@gmail.com")
                                                 .build());
 
         Long updateId = savedPosts.getId();

@@ -21,6 +21,9 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
+    @Column(columnDefinition = "integer default 0")
+    private int point;
+
     @Column
     private String picture;
 
@@ -32,13 +35,14 @@ public class User extends BaseTimeEntity {
     public User(String name, String email, String picture, Role role){
         this.name = name;
         this.email = email;
+        this.point = point;
         this.picture = picture;
         this.role = role;
     }
 
-    public User update(String name, String picture){
+    public User update(String name, int point){
         this.name = name;
-        this.picture = picture;
+        this.point = point;
 
         return this;
     }
