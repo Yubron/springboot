@@ -1,0 +1,50 @@
+{{>layout/header}}
+<div class="row" style="margin-top:1%; margin-bottom:-1%">
+    <div class="col-md-2">
+        <h4> 기본 정보 </h4>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-2">
+        <div class="btn-group-vertical">
+            <a href="/user/profile" class="btn btn-secondary" role="button">기본정보</a>
+            <a href="" class="btn btn-info" role="button">장바구니</a>
+            <a href="/user/shop" class="btn btn-secondary" role="button">내 상점</a>
+
+        </div>
+    </div>
+    <div class="col-md-10">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="text-align: center;">번호</th>
+                <th style="text-align: center;"><input type="checkbox" value="Y"></th>
+                <th style="text-align: center;">상품명</th>
+                <th style="text-align: center;">가격</th>
+                <th style="text-align: center;">수량</th>
+                <th style="text-align: center;">주문금액</th>
+                <th style="text-align: center;">주문관리</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#carts}}
+            <tr>
+                <td style="text-align: center;">John</td>
+                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
+                <td style="text-align: center;">
+                    <img src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" width="70px" style="float:left;" >
+                    <p style="width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"> {{title}}</p>
+                </td>
+                <td style="text-align: center;">{{price}}</td>
+                <td style="text-align: center;">{{count}}</td>
+                <td style="text-align: center;">{{totalPrice}}</td>
+                <td style="text-align: center;"><button type="button" class="btn btn-outline-danger ml-auto" id="btn-delete" style="width:70px; margin-right:3%; height:10%"> 삭제 </button></td>
+            </tr>
+            </tbody>
+            {{/carts}}
+        </table>
+    </div>
+</div>
+
+{{>layout/footer}}

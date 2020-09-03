@@ -1,5 +1,4 @@
 {{>layout/header}}
-<hr>
 <div class="row" style="margin-top:1%; margin-bottom:-1%">
     <div class="col-md-2">
         <h4> 기본 정보 </h4>
@@ -46,11 +45,13 @@
 
             <div class="form-group" hidden>
                 <div class="row">
-                    <label for="author"> 작성자 </label>
-                    <p style="color:red; margin-left:2%"> * </p>
+                    <label for="userName"> 작성자 </label>
+                    <label for="userEmail"> 작성자 </label>
                 </div>
-                <input type="text" class="form-control" id="author" placeholder="작성자를 입력하세요" value="{{userName}}">
+                <input type="text" class="form-control" id="userName" value="{{user.name}}">
+                <input type="text" class="form-control" id="userEmail" value="{{user.email}}">
             </div>
+
         </form>
     </div>
     <hr>

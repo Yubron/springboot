@@ -8,20 +8,23 @@
 
 <body style="padding-left:20%; padding-right:20%;">
 <div class="d-flex justify-content-end" style="padding-top:1%;">
-    {{#userName}}
-        <button type="button" class="btn btn-secondary">{{userName}}</button>
-
-        <button type="button" class="btn btn-warning" style="margin-left:1%" disabled > 100000 point </button>
+    {{#user}}
+        <a href="/user/profile" class="btn btn-info secondary" role="button"  style="margin-left:1%">{{name}}</a>
+        <button type="button" class="btn btn-warning" style="margin-left:1%" disabled > {{point}} point </button>
         <a href="/logout" class="btn btn-info active" role="button"  style="margin-left:1%">Logout</a>
-    {{/userName}}
-    {{^userName}}
+        <div hidden>
+            <input type="text" class="form-control" id="userName" value="{{name}}">
+            <input type="text" class="form-control" id="userEmail" value="{{email}}">
+        </div>
+    {{/user}}
+    {{^user}}
         <a href="/oauth2/authorization/google" class="btn btn-secondary active" role="button" style="margin-left:1%">
             Google Login
         </a>
         <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button" style="margin-left:1%">
             Naver Login
         </a>
-    {{/userName}}
+    {{/user}}
     <a href="" class="btn btn-info active" role="button" style="margin-left:1%;" >내 상점</a>
 </div>
 <hr>
@@ -34,5 +37,5 @@
     </form>
     <a href="/posts/save" class="btn btn-info active" role="button">판매하기</a>
 </nav>
-
+<hr>
 </body>

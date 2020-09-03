@@ -1,4 +1,4 @@
-package com.yubron.board.springboot.domain.posts;
+package com.yubron.board.springboot.domain.carts;
 
 import com.yubron.board.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
@@ -10,11 +10,16 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Posts extends BaseTimeEntity {
-
+public class Carts extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String userEmail;
+
+    @Column(nullable = false)
+    private Long itemId;
 
     @Column(length = 500, nullable = false)
     private String title;
@@ -24,28 +29,22 @@ public class Posts extends BaseTimeEntity {
 
     private int count;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String content;
-
-    private String userName;
-
-    private String userEmail;
+    private int totalPrice;
 
 
 
     @Builder
-    public Posts(String title, int price, int count, String content, String userName, String userEmail){
+    public Carts(String userEmail, Long itemId, String title, int price, int count){
+        this.userEmail = userEmail;
+        this.itemId = itemId;
         this.title = title;
         this.price = price;
         this.count = count;
-        this.content = content;
-        this.userName = userName;
-        this.userEmail = userEmail;
+        this.totalPrice = price * count;
     }
 
     public void update(String title, String content) {
         this.title = title;
-        this.content = content;
-    }
 
+    }
 }

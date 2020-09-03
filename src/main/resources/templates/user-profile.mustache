@@ -1,0 +1,36 @@
+{{>layout/header}}
+<div class="row" style="margin-top:1%; margin-bottom:-1%">
+    <div class="col-md-2">
+        <h4> 기본 정보 </h4>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-2">
+        <div class="btn-group-vertical">
+            <a href="" class="btn btn-info" role="button">기본정보</a>
+            <a href="/user/cart" class="btn btn-secondary" role="button">장바구니</a>
+            <a href="/user/shop" class="btn btn-secondary" role="button">내 상점</a>
+
+        </div>
+    </div>
+    <div class="col-md-5">
+        <img src="{{user.picture}}" width="100px" style="margin-bottom:5%">
+
+        <div class="form-group">
+            <div class="row">
+                <label for="userEmail"> 이메일 </label>
+            </div>
+            <input type="text" class="form-control" id="userName" value="{{user.email}}" disabled>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="userName"> 이름 </label>
+            </div>
+            <input type="text" class="form-control" id="userName" value="{{user.name}}" disabled>
+        </div>
+    </div>
+</div>
+
+{{>layout/footer}}

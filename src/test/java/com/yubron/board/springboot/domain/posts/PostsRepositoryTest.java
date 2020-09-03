@@ -33,7 +33,8 @@ public class PostsRepositoryTest {
         postsRepository.save(Posts.builder()
                                 .title(title)
                                 .content(content)
-                                .author("yubron@gmail.com")
+                                .userName("yoo jin soo")
+                                .userEmail("yubron@gmail.com")
                                 .build());
 
         //when
@@ -53,7 +54,8 @@ public class PostsRepositoryTest {
         postsRepository.save(Posts.builder()
                                 .title("title")
                                 .content("content")
-                                .author("author")
+                                .userName("yoo jin soo")
+                                .userEmail("yubron@gmail.com")
                                 .build());
 
         //when
