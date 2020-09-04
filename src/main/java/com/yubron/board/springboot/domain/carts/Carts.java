@@ -43,8 +43,8 @@ public class Carts extends BaseTimeEntity {
         this.totalPrice = price * count;
     }
 
-    public void update(String title, String content) {
-        this.title = title;
-
+    public void update(int count) {
+        this.count = count;
+        this.totalPrice = count * this.price;
     }
 }

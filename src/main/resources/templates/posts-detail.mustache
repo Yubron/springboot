@@ -4,17 +4,26 @@
         <img class="card-img-top" src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" alt="Card image cap">
     </div>
     <div class="col-md-7">
-        {{#permitModify}}
-        <div class="row" style="margin:0px">
-            <h2 style="margin-bottom:3%"><b> {{post.title}} </b></h2>
-            <button type="button" class="btn btn-outline-danger ml-auto" id="btn-delete" style="width:70px; margin-right:3%; height:10%"> 삭제 </button>
-            <button type="button" class="btn btn-outline-primary ml" onclick="location.href='/posts/update/{{post.id}}' " style="width:70px; height:10%"> 수정 </button>
+        <div style="height:90%">
+            {{#permitModify}}
+            <div class="row" style="margin:0px">
+                <h2 style="margin-bottom:3%"><b> {{post.title}} </b></h2>
+                <button type="button" class="btn btn-outline-danger ml-auto" id="btn-delete" style="width:70px; margin-right:3%; height:10%"> 삭제 </button>
+                <button type="button" class="btn btn-outline-success ml" onclick="location.href='/posts/update/{{post.id}}' " style="width:70px; height:10%"> 수정 </button>
+            </div>
+            {{/permitModify}}
+            <h3> {{post.price}} 원</h3>
+            <h5> 남은 수량 : {{post.count}} </h5>
+            <hr>
+            <h5> {{post.content}} </h5>
         </div>
-        {{/permitModify}}
-        <h3> {{post.price}} 원</h3>
-        <hr>
-        <h5> {{post.content}} </h5>
+        <div class="d-flex justify-content-end" style="height:10%">
+            <label style="margin-right:2%;">수량</label>
+            <input type="number" class="form-control" id="count" style="width:100px" value="1">
+        </div>
+
     </div>
+
 </div>
 <!-- 장바구니 및 구매 입력 값 -->
 <div hidden>
@@ -29,7 +38,7 @@
 
     <button type = "button" class="btn btn-outline-danger" id="btn-addCart" style="width:100px; margin-right:2%"> 장바구니 </button>
 
-    <button type = "button" class="btn btn-outline-primary" id="btn-purchase" style="width:100px"> 구매하기 </button>
+    <button type = "button" class="btn btn-outline-success" id="btn-purchase" style="width:100px"> 구매하기 </button>
 
 </div>
 

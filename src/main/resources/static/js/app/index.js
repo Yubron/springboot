@@ -14,9 +14,50 @@ var main = {
         });
 
         $('#btn-addCart').on('click',function(){
-            _this.addCart();
+            _this.addCart('addCart');
         });
 
+        $('#btn-purchase').on('click',function(){
+            _this.addCart('purchase');
+        });
+
+        $('.cartDelete').on('click',function(){
+            var id = $(this).closest('tr').data('value');
+            _this.cartDelete(id);
+        });
+
+        $('.cartUpdate').on('click',function(){
+            var id = $(this).closest('tr').data('value');
+            _this.cartUpdate(id);
+        });
+
+        $('.shopDelete').on('click',function(){
+            var id = $(this).closest('tr').data('value');
+            _this.delete(id);
+        });
+
+
+        var selectAll = document.querySelector("#allCheck");
+        selectAll.addEventListener('click', function(){
+            var objs = document.querySelectorAll(".cartCheck");
+            for (var i = 0; i < objs.length; i++) {
+                objs[i].checked = selectAll.checked;
+            };
+        }, false);
+
+        var objs = document.querySelectorAll(".cartCheck");
+        for(var i=0; i<objs.length ; i++){
+            objs[i].addEventListener('click', function(){
+            var selectAll = document.querySelector("#allCheck");
+            for (var j = 0; j < objs.length; j++) {
+              if (objs[j].checked === false) {
+                selectAll.checked = false;
+                return;
+              };
+            };
+            selectAll.checked = true;
+        }, false);
+        }
 
     },
 
@@ -65,8 +106,13 @@ var main = {
         });
     },
 
-    delete : function() {
-        var id = $('#id').val();
+    delete : function(id) {
+        if(arguments.length==0) {
+            var id = $('#id').val();
+        } else{
+            var id=id;
+        }
+
         $.ajax({
             type : 'DELETE',
             url : '/api/v1/posts/'+id,
@@ -74,14 +120,19 @@ var main = {
             contentType : 'application/json; charset=utf-8'
         }).done(function(){
             alert('글이 삭제되었습니다.');
-            window.location.href = '/';
+            if(arguments.length==0) {
+                window.location.href = '/';
+            } else {
+                window.location.href = '/user/shop';
+            }
         }).fail(function(){
             alert(JSON.stringify(error));
         });
+
     },
 
 
-    addCart : function() {
+    addCart : function(indicator) {
         var data = {
             userEmail : $('#userEmail').val(),
             itemId : $('#itemId').val(),
@@ -97,12 +148,53 @@ var main = {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert("장바구니에 추가되었습니다.");
-        }).fail(function(error){
-            alert(JSON.stringify(error))
+            if(indicator==='addCart') {
+                alert("장바구니에 추가되었습니다.");
+            } else {
+                window.location.href = '/user/cart';
+            }
+        }).fail(function(xhr, status, error){
+            alert(JSON.parse(xhr.responseText).message)
         });
     },
 
+    cartDelete : function(id) {
+        var id = $('#id'+id).val();
+
+        $.ajax({
+            type : 'DELETE',
+            url : '/api/v1/carts/'+id,
+            dataType : 'json',
+            contentType : 'application/json; charset=utf-8'
+        }).done(function(){
+            alert('장바구니가 삭제되었습니다.');
+            window.location.href = '/user/cart';
+        }).fail(function(){
+            alert(JSON.stringify(error));
+        });
+    },
+
+    cartUpdate : function(id) {
+        var data = {
+            id : $('#id'+id).val(),
+            itemId : $('#itemId'+id).val(),
+            count : $('#count'+id).val()
+        };
+
+        $.ajax({
+            type:'PUT',
+            url: '/api/v1/carts/'+id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function(){
+            alert("장바구니가 수정되었습니다");
+            window.location.href = '/user/cart';
+        }).fail(function(xhr, status, error){
+            alert(JSON.parse(xhr.responseText).message)
+        });
+
+    },
 
 
     // 공통함수
