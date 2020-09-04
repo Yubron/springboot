@@ -14,22 +14,38 @@
 
         </div>
     </div>
-    <div class="col-md-5">
-        <img src="{{user.Picture}}" width="100px" style="margin-bottom:5%">
-
-        <div class="form-group">
-            <div class="row">
-                <label for="userEmail"> 이메일 </label>
-            </div>
-            <input type="text" class="form-control" id="userName" value="{{user.Email}}" disabled>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <label for="userName"> 이름 </label>
-            </div>
-            <input type="text" class="form-control" id="userName" value="{{user.Name}}" disabled>
-        </div>
+    <div class="col-md-10">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="text-align: center;">상품명</th>
+                <th style="text-align: center;">가격</th>
+                <th style="text-align: center;">수정</th>
+                <th style="text-align: center;">삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#posts}}
+                <tr data-value="{{id}}">
+                    <td style="text-align: center;">
+                        <img src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" width="70px" style="float:left;" >
+                        <p style="width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; padding-left:5%"><a href="/posts/detail/{{id}}">{{title}}</a></p>
+                    </td>
+                    <td style="text-align: center;">{{price}} 원</td>
+                    <td style="text-align: center;">
+                        <a href="/posts/update/{{id}}" class="btn btn-outline-success ml-auto" role="button" style="width:55px; margin-right:3%; margin-top:2%; height:10%">수정</a>
+                    </td>
+                    <td style="text-align: center;"><button type="button" class="btn btn-outline-danger ml-auto shopDelete" id="btn-delete{{id}}" style="width:70px; margin-right:3%; height:10%"> 삭제 </button></td>
+                </tr>
+            {{/posts}}
+            {{^posts}}
+                <tr>
+                    <td colspan="6" style="text-align:center"><b><br>표시할 항목이 없습니다.</b></td>
+                </tr>
+            {{/posts}}
+            </tbody>
+        </table>
+        <hr>
     </div>
 </div>
 

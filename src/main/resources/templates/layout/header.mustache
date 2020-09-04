@@ -9,8 +9,9 @@
 <body style="padding-left:20%; padding-right:20%;">
 <div class="d-flex justify-content-end" style="padding-top:1%;">
     {{#user}}
-        <a href="/user/profile" class="btn btn-info secondary" role="button"  style="margin-left:1%">{{name}}</a>
-        <button type="button" class="btn btn-warning" style="margin-left:1%" disabled > {{point}} point </button>
+        <a href="/user/profile" class="btn btn-info secondary" role="button"  style="margin-left:1%">MYPAGE</a>
+        <a href="/user/cart" class="btn btn-info secondary" role="button"  style="margin-left:1%">CART</a>
+        <a href="/user/shop" class="btn btn-info secondary" role="button"  style="margin-left:1%">MYSHOP</a>
         <a href="/logout" class="btn btn-info active" role="button"  style="margin-left:1%">Logout</a>
         <div hidden>
             <input type="text" class="form-control" id="userName" value="{{name}}">
@@ -25,7 +26,6 @@
             Naver Login
         </a>
     {{/user}}
-    <a href="" class="btn btn-info active" role="button" style="margin-left:1%;" >내 상점</a>
 </div>
 <hr>
 

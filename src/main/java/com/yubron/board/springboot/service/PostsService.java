@@ -1,5 +1,6 @@
 package com.yubron.board.springboot.service;
 
+import com.yubron.board.springboot.domain.carts.Carts;
 import com.yubron.board.springboot.domain.posts.Posts;
 import com.yubron.board.springboot.domain.posts.PostsRepository;
 import com.yubron.board.springboot.web.dto.PostsListResponseDto;
@@ -38,6 +39,11 @@ public class PostsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
 
         return new PostsResponseDto(entity);
+    }
+
+    @Transactional
+    public List<Posts> findByUserEmail(String userEmail){
+        return postsRepository.findByUserEmail(userEmail);
     }
 
     @Transactional(readOnly = true)
