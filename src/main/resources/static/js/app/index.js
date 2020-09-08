@@ -1,6 +1,11 @@
 var main = {
     init : function() {
         var _this = this;
+
+        $('#btn-search').on('click', function(){
+            _this.search();
+        });
+
         $('#btn-save').on('click', function(){
             _this.save();
         });
@@ -36,7 +41,7 @@ var main = {
             _this.delete(id);
         });
 
-
+        /*
         var selectAll = document.querySelector("#allCheck");
         selectAll.addEventListener('click', function(){
             var objs = document.querySelectorAll(".cartCheck");
@@ -58,9 +63,15 @@ var main = {
             selectAll.checked = true;
         }, false);
         }
-
+        */
     },
+    search : function() {
+        var data = {
+            searchKeyword : $('#searchKeyword').val()
+        };
 
+        location.href='/search/'+data.searchKeyword;
+    },
     save : function() {
         var data = {
             title     : $('#title').val(),

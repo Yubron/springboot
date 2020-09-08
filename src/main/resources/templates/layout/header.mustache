@@ -31,9 +31,9 @@
 
 <nav class="navbar navbar-light bg-light">
     <a href="/" class="btn btn-info active" role="button">번개장터</a>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" style="width:500px" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-2" type="submit">Search</button>
+    <form class="form-inline" onsubmit="return false;">
+        <input class="form-control mr-sm-2" style="width:500px" type="text" placeholder="Search" id="searchKeyword" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-2" type="submit" id="btn-search">Search</button>
     </form>
     <a href="/posts/save" class="btn btn-info active" role="button">판매하기</a>
 </nav>
