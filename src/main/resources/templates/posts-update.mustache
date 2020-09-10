@@ -11,13 +11,13 @@
 <hr>
 <div class="col-md-12">
     <div class="col-md-4">
-        <form>
+        <form class="needs-validation">
             <div class="form-group">
                 <div class="row">
                     <label for="title"> 제목 </label>
                     <p style="color:red; margin-left:2%"> * </p>
                 </div>
-                <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" value="{{post.title}}">
+                <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" value="{{post.title}}" required>
             </div>
 
             <div class="form-group">
@@ -25,7 +25,7 @@
                     <label for="price"> 가격 </label>
                     <p style="color:red; margin-left:2%"> * </p>
                 </div>
-                <input type="number" class="form-control" id="price" placeholder="금액을 입력하세요" value="{{post.price}}">
+                <input type="number" class="form-control" id="price" placeholder="금액을 입력하세요" value="{{post.price}}" min="1" required>
             </div>
 
             <div class="form-group">
@@ -33,7 +33,7 @@
                     <label for="content"> 내용 </label>
                     <p style="color:red; margin-left:2%"> * </p>
                 </div>
-                <textarea type="text" class="form-control" id="content">{{post.content}}</textarea>
+                <textarea type="text" class="form-control" id="content" required>{{post.content}} </textarea>
             </div>
 
             <div class="form-group">
@@ -41,7 +41,7 @@
                     <label for="count"> 수량 </label>
                     <p style="color:red; margin-left:2%"> * </p>
                 </div>
-                <input type="number" class="form-control" id="count" placeholder="수량을 입력하세요" value="{{post.count}}">
+                <input type="number" class="form-control" id="count" placeholder="수량을 입력하세요" value="{{post.count}}" min="1" required>
             </div>
 
             <div class="form-group" hidden>

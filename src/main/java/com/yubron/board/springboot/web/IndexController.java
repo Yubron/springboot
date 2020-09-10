@@ -46,7 +46,7 @@ public class IndexController {
                                                                                         .collect(Collectors.toList());
 
         model.addAttribute("posts",postsListResponseDtos);
-
+        model.addAttribute("searchKeyword", searchKeyword);
         if(user != null){
             model.addAttribute("user",user);
         }
