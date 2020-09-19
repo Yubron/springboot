@@ -32,7 +32,10 @@ public class PostsRepositoryTest {
 
         postsRepository.save(Posts.builder()
                                 .title(title)
+                                .imgFileUrl("imgFileUrl")
                                 .content(content)
+                                .count(5)
+                                .price(500)
                                 .userName("yoo jin soo")
                                 .userEmail("yubron@gmail.com")
                                 .build());
@@ -53,6 +56,9 @@ public class PostsRepositoryTest {
         LocalDateTime now = LocalDateTime.of(2020,6,28,0,0,0);
         postsRepository.save(Posts.builder()
                                 .title("title")
+                                .imgFileUrl("imgFileUrl")
+                                .count(5)
+                                .price(5)
                                 .content("content")
                                 .userName("yoo jin soo")
                                 .userEmail("yubron@gmail.com")
