@@ -16,6 +16,9 @@ public class Posts extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 1000, nullable = false)
+    private String imgFileUrl;
+
     @Column(length = 500, nullable = false)
     private String title;
 
@@ -34,7 +37,8 @@ public class Posts extends BaseTimeEntity {
 
 
     @Builder
-    public Posts(String title, int price, int count, String content, String userName, String userEmail){
+    public Posts(String imgFileUrl, String title, int price, int count, String content, String userName, String userEmail){
+        this.imgFileUrl = imgFileUrl;
         this.title = title;
         this.price = price;
         this.count = count;
@@ -43,8 +47,11 @@ public class Posts extends BaseTimeEntity {
         this.userEmail = userEmail;
     }
 
-    public void update(String title, String content) {
+    public void update(String imgFileUrl, String title, int price, int count, String content) {
+        this.imgFileUrl = imgFileUrl;
         this.title = title;
+        this.price = price;
+        this.count = count;
         this.content = content;
     }
 

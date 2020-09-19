@@ -1,6 +1,7 @@
 package com.yubron.board.springboot.domain.posts;
 
 import com.yubron.board.springboot.domain.carts.Carts;
+import com.yubron.board.springboot.web.dto.PostsResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

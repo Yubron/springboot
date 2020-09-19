@@ -31,7 +31,7 @@
             <tr data-value="{{id}}">
                 <td style="text-align: center;"><input type="checkbox" value="Y" class="cartCheck" checked></td>
                 <td style="text-align: center;">
-                    <img src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" width="70px" style="float:left;" >
+                    <img src="{{imgFileUrl}}" width="70px" height="70px" style="float:left;" >
 
                     <p style="width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; padding-left:5%"><a href="/posts/detail/{{itemId}}">{{title}}</a></p>
 
@@ -40,7 +40,7 @@
                 <td style="text-align: center;">
                     <input type="number" id="id{{id}}" value="{{id}}" hidden>
                     <input type="number" id="itemId{{id}}" value="{{itemId}}" hidden>
-                    <input type="number" class="form-control" id="count{{id}}" style="width:30%; display:inherit;" value="{{count}}"> 개
+                    <input type="number" class="form-control" id="count{{id}}" style="width:30%; display:inherit;" value="{{count}}" min="1"> 개
                     <br>
                     <button type="button" class="btn btn-outline-success ml-auto cartUpdate" id="btn-cartUpdate{{id}}" style="width:55px; margin-right:3%; margin-top:2%; height:10%"> 수정 </button>
                 </td>

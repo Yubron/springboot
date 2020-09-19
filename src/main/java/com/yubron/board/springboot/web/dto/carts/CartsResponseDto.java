@@ -1,12 +1,15 @@
 package com.yubron.board.springboot.web.dto.carts;
 
 import com.yubron.board.springboot.domain.carts.Carts;
+import com.yubron.board.springboot.service.PostsService;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class CartsListResponseDto {
+@Setter
+public class CartsResponseDto {
     private Long id;
     private String userEmail;
     private Long itemId;
@@ -15,9 +18,9 @@ public class CartsListResponseDto {
     private int count;
     private int totalPrice;
     private LocalDateTime modifiedDate;
+    private String imgFileUrl;
 
-
-    public CartsListResponseDto(Carts entity){
+    public CartsResponseDto(Carts entity){
         this.id = entity.getId();
         this.userEmail = entity.getUserEmail();
         this.itemId = entity.getItemId();

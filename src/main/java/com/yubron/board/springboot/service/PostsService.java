@@ -1,9 +1,7 @@
 package com.yubron.board.springboot.service;
 
-import com.yubron.board.springboot.domain.carts.Carts;
 import com.yubron.board.springboot.domain.posts.Posts;
 import com.yubron.board.springboot.domain.posts.PostsRepository;
-import com.yubron.board.springboot.web.dto.PostsListResponseDto;
 import com.yubron.board.springboot.web.dto.PostsResponseDto;
 import com.yubron.board.springboot.web.dto.PostsSaveRequestDto;
 import com.yubron.board.springboot.web.dto.PostsUpdateRequestDto;
@@ -21,6 +19,7 @@ public class PostsService {
 
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) {
+
         return postsRepository.save(requestDto.toEntity()).getId();
     }
 
@@ -28,7 +27,7 @@ public class PostsService {
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
         Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException
                 ("해당 사용자가 없습니다. id=" + id));
-        posts.update(requestDto.getTitle(), requestDto.getContent());
+        posts.update(requestDto.getImgFileUrl(), requestDto.getTitle(), requestDto.getPrice(), requestDto.getCount(), requestDto.getContent());
 
         return id;
     }
@@ -42,21 +41,16 @@ public class PostsService {
     }
 
     @Transactional
-    public List<Posts> findByUserEmail(String userEmail){
-        return postsRepository.findByUserEmail(userEmail);
-    }
-
-    @Transactional(readOnly = true)
-    public List<PostsListResponseDto> findAllDesc(){
-        return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new)
+    public List<PostsResponseDto> findByUserEmail(String userEmail){
+        return postsRepository.findByUserEmail(userEmail).stream()
+                .map(PostsResponseDto::new)
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public List<PostsListResponseDto> findAll(){
-        return postsRepository.findAll().stream()
-                .map(PostsListResponseDto::new)
+    @Transactional(readOnly = true)
+    public List<PostsResponseDto> findAllDesc(){
+        return postsRepository.findAllDesc().stream()
+                .map(PostsResponseDto::new)
                 .collect(Collectors.toList());
     }
 

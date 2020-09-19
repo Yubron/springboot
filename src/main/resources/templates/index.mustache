@@ -6,9 +6,9 @@
 <br>
 <br>
 {{#posts}}
-<div class="card" style="width:20%; display: inline-block; margin:1%">
+<div class="card" style="width:20%; display: inline-block; margin:20px">
     <a href="/posts/detail/{{id}}">
-        <img class="card-img-top" src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" alt="Card image cap">
+        <img class="card-img-top" src="{{imgFileUrl}}" alt="Card image cap" style="height:200px;">
     </a>
     <div class="card-body" style="height:100px">
         <h5 class="card-title" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="/posts/detail/{{id}}">{{title}}</a></h5>

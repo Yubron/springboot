@@ -41,6 +41,7 @@ var main = {
             _this.delete(id);
         });
 
+
         /*
         var selectAll = document.querySelector("#allCheck");
         selectAll.addEventListener('click', function(){
@@ -73,22 +74,25 @@ var main = {
         location.href='/search/'+data.searchKeyword;
     },
     save : function() {
-        var data = {
-            title     : $('#title').val(),
-            price     : $('#price').val(),
-            count     : $('#count').val(),
-            userName  : $('#userName').val(),
-            userEmail : $('#userEmail').val(),
-            content   : $('#content').val()
-        };
+        var form = $('#frm-upload')[0];
+        var data = new FormData(form);
+        data.append("userName", $('#userName').val());
+        data.append("userEmail", $('#userEmail').val());
+        var imgFile = $('#imgFile').val();
+        if(imgFile==="") {
+            alert("사진을 넣어주세요");
+            return 0;
+        }
 
-        if (formValidation() === true) {
+        if (formValidation()===true) {
             $.ajax({
-                type: 'POST',
                 url: '/api/v1/posts',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false
             }).done(function() {
                 alert('글이 등록되었습니다.');
                 window.location.href = '/';
@@ -102,19 +106,21 @@ var main = {
     },
 
     update : function() {
-        var data = {
-            title : $('#title').val(),
-            content : $('#content').val()
-        };
-
         var id = $('#id').val();
+
+        var form = $('#frm-upload')[0];
+        var data = new FormData(form);
+        var imgFile = $('#imgFile').val();
+
         if (formValidation() === true) {
             $.ajax({
                 type:'PUT',
                 url: '/api/v1/posts/'+id,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
+                enctype: 'multipart/form-data',
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false
             }).done(function(){
                 alert("글이 수정되었습니다");
                 window.location.href = '/';
@@ -216,5 +222,20 @@ var main = {
 
 
 };
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var width = document.getElementsByClassName("input-group-prepend")[0].clientWidth - 80;
+            $('#blah').attr('src', e.target.result);
+            $('#blah').attr('style', 'width:400'+ 'px; display:block; max-height: 250px;');
+        }
+        reader.readAsDataURL(input.files[0]);
+        var fileName = document.getElementById('imgFile').files[0].name;
+        $('#imgFileLabel').text( fileName );
+    }
+}
+
 
 main.init();
+
