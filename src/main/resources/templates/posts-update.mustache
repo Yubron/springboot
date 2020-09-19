@@ -9,56 +9,71 @@
     </div>
 </div>
 <hr>
-<div class="col-md-12">
-    <div class="col-md-4">
-        <form class="needs-validation">
-            <div class="form-group">
-                <div class="row">
-                    <label for="title"> 제목 </label>
-                    <p style="color:red; margin-left:2%"> * </p>
-                </div>
-                <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" value="{{post.title}}" required>
-            </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <label for="price"> 가격 </label>
-                    <p style="color:red; margin-left:2%"> * </p>
-                </div>
-                <input type="number" class="form-control" id="price" placeholder="금액을 입력하세요" value="{{post.price}}" min="1" required>
-            </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <label for="content"> 내용 </label>
-                    <p style="color:red; margin-left:2%"> * </p>
-                </div>
-                <textarea type="text" class="form-control" id="content" required>{{post.content}} </textarea>
-            </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <label for="count"> 수량 </label>
-                    <p style="color:red; margin-left:2%"> * </p>
-                </div>
-                <input type="number" class="form-control" id="count" placeholder="수량을 입력하세요" value="{{post.count}}" min="1" required>
-            </div>
-
-            <div class="form-group" hidden>
-                <div class="row">
-                    <label for="userName"> 작성자 </label>
-                    <label for="userEmail"> 작성자 </label>
-                </div>
-                <input type="text" class="form-control" id="userName" value="{{user.name}}">
-                <input type="text" class="form-control" id="userEmail" value="{{user.email}}">
-                <input type="text" class="form-control" id="id" value="{{post.id}}">
-            </div>
-        </form>
+<form id="frm-upload" enctype="multipart/form-data" class="needs-validation">
+    <div style="float:left; height:350px">
+        <div class="input-group-prepend">
+            <label for="title"> 사진 </label>
+            <p style="color:red; margin-left:2%"> * </p>
+        </div>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="imgFile" name="imgFile" aria-describedby="inputGroupFileAddon01" onchange="readURL(this);">
+            <label class="custom-file-label" id="imgFileLabel" for="imgFile">Choose file</label>
+            <img id="blah" class="card-img-top" src="{{post.imgFileUrl}}" alt="Card image cap" style="width:400px; height:400px; display:block; max-height: 250px;">
+        </div>
     </div>
+    <div style="float:left; width:50%; padding-left:5%">
+        <div class="form-group">
+            <div class="row">
+                <label for="title"> 제목 </label>
+                <p style="color:red; margin-left:2%"> * </p>
+            </div>
+            <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요" value="{{post.title}}" required>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="price"> 가격 </label>
+                <p style="color:red; margin-left:2%"> * </p>
+            </div>
+            <input type="number" class="form-control" id="price" name="price" placeholder="금액을 입력하세요" value="{{post.price}}" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="content"> 내용 </label>
+                <p style="color:red; margin-left:2%"> * </p>
+            </div>
+            <textarea type="text" class="form-control" id="content" name="content" required>{{post.content}} </textarea>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="count"> 수량 </label>
+                <p style="color:red; margin-left:2%"> * </p>
+            </div>
+            <input type="number" class="form-control" id="count" name="count" placeholder="수량을 입력하세요" value="{{post.count}}" min="1" required>
+        </div>
+
+        <div class="form-group" hidden>
+            <div class="row">
+                <label for="userName"> 작성자 </label>
+                <label for="userEmail"> 작성자 </label>
+            </div>
+            <input type="text" class="form-control" id="userName" value="{{user.name}}">
+            <input type="text" class="form-control" id="userEmail" value="{{user.email}}">
+            <input type="text" class="form-control" id="id" value="{{post.id}}">
+        </div>
+    </div>
+</form>
+
+<div style="clear:both; text-align:center">
     <hr>
-    <button type = "button" class="btn btn-primary" id="btn-update"> 수정완료 </button>
     <a href="/" role="button" class="btn btn-secondary"> 취소 </a>
+    <button type = "button" class="btn btn-primary" id="btn-update"> 수정완료 </button>
 </div>
+
+
+
 
 
 

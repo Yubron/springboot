@@ -6,6 +6,7 @@ import com.yubron.board.springboot.domain.posts.Posts;
 import com.yubron.board.springboot.domain.posts.PostsRepository;
 import com.yubron.board.springboot.domain.user.User;
 import com.yubron.board.springboot.web.dto.PostsUpdateRequestDto;
+import com.yubron.board.springboot.web.dto.carts.CartsResponseDto;
 import com.yubron.board.springboot.web.dto.carts.CartsSaveRequestDto;
 import com.yubron.board.springboot.web.dto.carts.CartsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -45,8 +47,14 @@ public class CartsService {
     }
 
     @Transactional
-    public List<Carts> findByUserEmail(String userEmail){
-        return cartsRepository.findByUserEmail(userEmail);
+    public List<CartsResponseDto> findByUserEmail(String userEmail){
+        List<CartsResponseDto> cartsResponseDtoList = cartsRepository.findByUserEmail(userEmail).stream()
+                .map(CartsResponseDto::new)
+                .collect(Collectors.toList());
+        cartsResponseDtoList.stream().forEach(item -> {
+            item.setImgFileUrl(postsRepository.findById(item.getItemId()).get().getImgFileUrl());
+        });
+        return cartsResponseDtoList;
     }
 
     @Transactional

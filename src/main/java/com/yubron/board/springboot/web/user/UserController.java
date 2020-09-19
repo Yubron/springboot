@@ -6,6 +6,8 @@ import com.yubron.board.springboot.domain.carts.Carts;
 import com.yubron.board.springboot.domain.posts.Posts;
 import com.yubron.board.springboot.service.CartsService;
 import com.yubron.board.springboot.service.PostsService;
+import com.yubron.board.springboot.web.dto.PostsResponseDto;
+import com.yubron.board.springboot.web.dto.carts.CartsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +31,7 @@ public class UserController {
 
     @GetMapping("/user/cart")
     public String cart(Model model, @LoginUser SessionUser user) {
-        List<Carts> carts = cartsService.findByUserEmail(user.getEmail());
+        List<CartsResponseDto> carts = cartsService.findByUserEmail(user.getEmail());
         model.addAttribute("carts",carts);
         model.addAttribute("cartsIsEmpty",carts.isEmpty());
         model.addAttribute("user",user);
@@ -38,7 +40,7 @@ public class UserController {
 
     @GetMapping("/user/shop")
     public String shop(Model model, @LoginUser SessionUser user) {
-        List<Posts> posts = postsService.findByUserEmail(user.getEmail());
+        List<PostsResponseDto> posts = postsService.findByUserEmail(user.getEmail());
         model.addAttribute("posts", posts);
         model.addAttribute("postsIsEmpty", posts.isEmpty());
         model.addAttribute("user",user);

@@ -3,7 +3,6 @@ package com.yubron.board.springboot.web;
 import com.yubron.board.springboot.config.auth.LoginUser;
 import com.yubron.board.springboot.config.auth.dto.SessionUser;
 import com.yubron.board.springboot.service.PostsService;
-import com.yubron.board.springboot.web.dto.PostsListResponseDto;
 import com.yubron.board.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -40,10 +37,10 @@ public class IndexController {
     @GetMapping("/search/{searchKeyword}")
     public String searchResult(Model model, @PathVariable String searchKeyword, @LoginUser SessionUser user) {
 
-        List<PostsListResponseDto> postsListResponseDtos = postsService.findAllDesc().stream()
-                                                                                        .filter(t->t.getTitle().contains(searchKeyword) ||
-                                                                                                   t.getContent().contains(searchKeyword) )
-                                                                                        .collect(Collectors.toList());
+        List<PostsResponseDto> postsListResponseDtos = postsService.findAllDesc().stream()
+                                                                                .filter(t->t.getTitle().contains(searchKeyword) ||
+                                                                                        t.getContent().contains(searchKeyword) )
+                                                                                .collect(Collectors.toList());
 
         model.addAttribute("posts",postsListResponseDtos);
         model.addAttribute("searchKeyword", searchKeyword);
