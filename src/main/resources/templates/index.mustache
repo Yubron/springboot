@@ -6,19 +6,37 @@
 <br>
 <br>
 {{#posts}}
-<div class="card" style="width:20%; display: inline-block; margin:20px">
-    <a href="/posts/detail/{{id}}">
-        <img class="card-img-top" src="{{imgFileUrl}}" alt="Card image cap" style="height:200px;">
-    </a>
-    <div class="card-body" style="height:100px">
-        <h5 class="card-title" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="/posts/detail/{{id}}">{{title}}</a></h5>
-        <p class="card-text">{{price}} 원</p>
-    </div>
-    <div class="card-footer">
-        <small class="text-muted">{{userName}}</small>
-    </div>
-</div>
+    {{#isEffective}}
+        <div class="card" style="width:20%; display: inline-block; margin:20px">
+            <a href="/posts/detail/{{id}}">
+                <img class="card-img-top" src="{{imgFileUrl}}" alt="Card image cap" style="height:200px;">
+            </a>
+            <div class="card-body" style="height:100px">
+                <h5 class="card-title" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="/posts/detail/{{id}}">{{title}}</a></h5>
+                <p class="card-text">{{price}} 원</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">{{userName}}</small>
+            </div>
+        </div>
+    {{/isEffective}}
+    {{^isEffective}}
+        <div class="card" style="width:20%; display: inline-block; margin:20px">
+            <a href="/posts/detail/{{id}}">
+                <img class="card-img-top" src="img/ineffectivePost.jpeg" alt="Card image cap" style="height:200px;">
+            </a>
+            <div class="card-body" style="height:100px">
+                <h5 class="card-title" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="/posts/detail/{{id}}"><del>{{title}}</del></a></h5>
+                <p class="card-text"><del>{{price}} 원</del></p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">{{userName}}</small>
+            </div>
+        </div>
+    {{/isEffective}}
 {{/posts}}
+
+
 
 {{^posts}}
         <h5 align="center"> 표시할 상품이 없습니다. </h5>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class PostsRepositoryTest {
                                 .price(500)
                                 .userName("yoo jin soo")
                                 .userEmail("yubron@gmail.com")
+                                .effectiveFromDate(LocalDate.now())
+                                .effectiveToDate(LocalDate.now())
                                 .build());
 
         //when
@@ -62,6 +65,8 @@ public class PostsRepositoryTest {
                                 .content("content")
                                 .userName("yoo jin soo")
                                 .userEmail("yubron@gmail.com")
+                                .effectiveFromDate(LocalDate.now())
+                                .effectiveToDate(LocalDate.now())
                                 .build());
 
         //when

@@ -6,7 +6,6 @@ import com.yubron.board.springboot.web.dto.PostsResponseDto;
 import com.yubron.board.springboot.web.dto.PostsSaveRequestDto;
 import com.yubron.board.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -19,43 +18,35 @@ public class PostsApiController {
 
     private final S3Service s3Service;
 
-
-
-    @PostMapping("/api/v1/posts")
-    public Long save(@RequestParam("title") String title,
-                     @RequestParam("price") int price,
-                     @RequestParam("content") String content,
-                     @RequestParam("count") int count,
-                     @RequestParam("imgFile") MultipartFile imgFile,
-                     @RequestParam("userName") String userName,
-                     @RequestParam("userEmail") String userEmail) throws IOException {
+    @PostMapping(value = "/api/v1/posts" , consumes = {"multipart/form-data"})
+    public Long save(@RequestPart("requestDto") PostsSaveRequestDto requestDto,
+                     @RequestPart(value = "imgFile") MultipartFile imgFile) throws IOException{
 
         String imgFileUrl = s3Service.upload(imgFile);
 
         PostsSaveRequestDto postsSaveRequestDto = PostsSaveRequestDto.builder()
-                                                                    .imgFileUrl(imgFileUrl)
-                                                                    .title(title)
-                                                                    .price(price)
-                                                                    .content(content)
-                                                                    .count(count)
-                                                                    .userName(userName)
-                                                                    .userEmail(userEmail)
-                                                                    .build();
+                .imgFileUrl(imgFileUrl)
+                .title(requestDto.getTitle())
+                .price(requestDto.getPrice())
+                .content(requestDto.getContent())
+                .count(requestDto.getCount())
+                .userName(requestDto.getUserName())
+                .userEmail(requestDto.getUserEmail())
+                .effectiveToDate(requestDto.getEffectiveToDate())
+                .effectiveFromDate(requestDto.getEffectiveFromDate())
+                .build();
 
         return postsService.save(postsSaveRequestDto);
     }
 
     @PutMapping("/api/v1/posts/{id}")
-    public Long update(@PathVariable Long id, @RequestParam("title") String title,
-                                              @RequestParam("price") int price,
-                                              @RequestParam("content") String content,
-                                              @RequestParam("count") int count,
-                                              @RequestParam("imgFile") MultipartFile imgFile) throws IOException {
+    public Long update(@PathVariable Long id, @RequestPart("requestDto") PostsUpdateRequestDto requestDto,
+                                              @RequestPart(value="imgFile", required = false) MultipartFile imgFile) throws IOException {
 
         String imgFileUrl;
         String originalImgFileUrl = postsService.findById(id).getImgFileUrl();
 
-        if(imgFile.getOriginalFilename().equals("")) {
+        if(imgFile == null) {
             imgFileUrl = originalImgFileUrl;
         } else {
             imgFileUrl = s3Service.upload(imgFile);
@@ -63,10 +54,11 @@ public class PostsApiController {
 
         PostsUpdateRequestDto postsUpdateRequestDto = PostsUpdateRequestDto.builder()
                                                                         .imgFileUrl(imgFileUrl)
-                                                                        .title(title)
-                                                                        .price(price)
-                                                                        .content(content)
-                                                                        .count(count)
+                                                                        .title(requestDto.getTitle())
+                                                                        .price(requestDto.getPrice())
+                                                                        .content(requestDto.getContent())
+                                                                        .count(requestDto.getCount())
+                                                                        .effectiveToDate(requestDto.getEffectiveToDate())
                                                                         .build();
         return postsService.update(id, postsUpdateRequestDto);
     }

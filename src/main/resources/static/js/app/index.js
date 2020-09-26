@@ -40,31 +40,6 @@ var main = {
             var id = $(this).closest('tr').data('value');
             _this.delete(id);
         });
-
-
-        /*
-        var selectAll = document.querySelector("#allCheck");
-        selectAll.addEventListener('click', function(){
-            var objs = document.querySelectorAll(".cartCheck");
-            for (var i = 0; i < objs.length; i++) {
-                objs[i].checked = selectAll.checked;
-            };
-        }, false);
-
-        var objs = document.querySelectorAll(".cartCheck");
-        for(var i=0; i<objs.length ; i++){
-            objs[i].addEventListener('click', function(){
-            var selectAll = document.querySelector("#allCheck");
-            for (var j = 0; j < objs.length; j++) {
-              if (objs[j].checked === false) {
-                selectAll.checked = false;
-                return;
-              };
-            };
-            selectAll.checked = true;
-        }, false);
-        }
-        */
     },
     search : function() {
         var data = {
@@ -74,25 +49,31 @@ var main = {
         location.href='/search/'+data.searchKeyword;
     },
     save : function() {
-        var form = $('#frm-upload')[0];
-        var data = new FormData(form);
-        data.append("userName", $('#userName').val());
-        data.append("userEmail", $('#userEmail').val());
-        var imgFile = $('#imgFile').val();
-        if(imgFile==="") {
-            alert("사진을 넣어주세요");
-            return 0;
-        }
+        var formData = new FormData();
+        var file = $('input[type=file]')[0].files[0];
+        formData.append('requestDto', new Blob([JSON.stringify({
+                        'title' : $('#title').val(),
+                        'price' : $('#price').val(),
+                        'content' : $('#content').val(),
+                        'count' : $('#count').val(),
+                        'userName' : $('#userName').val(),
+                        'userEmail' : $('#userEmail').val(),
+                        'effectiveToDate' : $('#effectiveToDate').val(),
+                        'effectiveFromDate' : $('#effectiveFromDate').val()
+                    })], {
+                        type: "application/json"
+                    }));
+
+        formData.append("imgFile", file);
+
 
         if (formValidation()===true) {
             $.ajax({
                 url: '/api/v1/posts',
                 type: 'POST',
-                enctype: 'multipart/form-data',
-                data: data,
+                data: formData,
                 processData: false,
-                contentType: false,
-                cache: false
+                contentType: false
             }).done(function() {
                 alert('글이 등록되었습니다.');
                 window.location.href = '/';
@@ -102,25 +83,32 @@ var main = {
         } else{
             alert("필수값을 입력하세요.")
         }
-
     },
 
     update : function() {
         var id = $('#id').val();
 
-        var form = $('#frm-upload')[0];
-        var data = new FormData(form);
-        var imgFile = $('#imgFile').val();
+        var formData = new FormData();
+        var file = $('input[type=file]')[0].files[0];
+        formData.append('requestDto', new Blob([JSON.stringify({
+                        'title' : $('#title').val(),
+                        'price' : $('#price').val(),
+                        'content' : $('#content').val(),
+                        'count' : $('#count').val(),
+                        'effectiveToDate' : $('#effectiveToDate').val()
+                    })], {
+                        type: "application/json"
+                    }));
+
+        formData.append("imgFile", file);
 
         if (formValidation() === true) {
             $.ajax({
-                type:'PUT',
                 url: '/api/v1/posts/'+id,
-                enctype: 'multipart/form-data',
-                data: data,
+                type:'PUT',
+                data: formData,
                 processData: false,
-                contentType: false,
-                cache: false
+                contentType: false
             }).done(function(){
                 alert("글이 수정되었습니다");
                 window.location.href = '/';
@@ -129,7 +117,7 @@ var main = {
             });
         } else{
               alert("필수값을 입력하세요.")
-          }
+        }
     },
 
     delete : function(id) {

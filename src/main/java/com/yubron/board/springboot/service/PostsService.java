@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,35 @@ public class PostsService {
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
         Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException
                 ("해당 사용자가 없습니다. id=" + id));
-        posts.update(requestDto.getImgFileUrl(), requestDto.getTitle(), requestDto.getPrice(), requestDto.getCount(), requestDto.getContent());
+        posts.update(requestDto.getImgFileUrl(),
+                requestDto.getTitle(),
+                requestDto.getPrice(),
+                requestDto.getCount(),
+                requestDto.getContent(),
+                requestDto.getEffectiveToDate());
+
+        if(requestDto.getEffectiveToDate().isBefore(LocalDate.now())) {
+            updateIneffective(id);
+        } else {
+            updateEffective(id);
+        }
+        return id;
+    }
+
+    @Transactional
+    public Long updateIneffective(Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException
+                ("해당 사용자가 없습니다. id=" + id));
+        posts.updateIneffective(false);
+
+        return id;
+    }
+
+    @Transactional
+    public Long updateEffective(Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException
+                ("해당 사용자가 없습니다. id=" + id));
+        posts.updateIneffective(true);
 
         return id;
     }

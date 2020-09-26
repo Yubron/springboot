@@ -29,3 +29,42 @@ function formValidation() {
   }, false);
 })();
 
+function effectiveDateValidation() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("effectiveToDate").setAttribute("min", today);
+    document.getElementById("effectiveFromDate").setAttribute("min", today);
+}
+
+$('#effectiveFromDate').on('change', function(){
+    var effectiveFromDate = $('#effectiveFromDate').val();
+    var effectiveToDate = $('#effectiveToDate').val();
+    if(effectiveFromDate > effectiveToDate) {
+        $('#effectiveToDate').val(effectiveFromDate);
+    }
+    document.getElementById("effectiveToDate").setAttribute("min", effectiveFromDate);
+});
+
+$('#effectiveToDate').on('change', function(){
+    var effectiveFromDate = $('#effectiveFromDate').val();
+    var effectiveToDate = $('#effectiveToDate').val();
+    document.getElementById("effectiveToDate").setAttribute("min", effectiveFromDate);
+});
+
+
+$('#frm-upload').on('change', function(){
+    this.classList.add("was-validated");
+});
+
+
+effectiveDateValidation();

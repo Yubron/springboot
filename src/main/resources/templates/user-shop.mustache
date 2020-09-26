@@ -28,7 +28,12 @@
             {{#posts}}
                 <tr data-value="{{id}}">
                     <td style="text-align: center;">
-                        <img src="{{imgFileUrl}}" width="70px" height="70px" style="float:left;" >
+                        {{#isEffective}}
+                            <img src="{{imgFileUrl}}" width="70px" height="70px" style="float:left;" >
+                        {{/isEffective}}
+                        {{^isEffective}}
+                            <img src="../../img/ineffectivePost.jpeg" width="70px" height="70px" style="float:left;" >
+                        {{/isEffective}}
                         <p style="width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; padding-left:5%"><a href="/posts/detail/{{id}}">{{title}}</a></p>
                     </td>
                     <td style="text-align: center;">{{price}} 원</td>

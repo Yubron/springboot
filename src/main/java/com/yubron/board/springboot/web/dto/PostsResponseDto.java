@@ -5,6 +5,7 @@ import com.yubron.board.springboot.service.S3Service;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -20,6 +21,9 @@ public class PostsResponseDto {
     private String userName;
     private String userEmail;
     private LocalDateTime modifiedDate;
+    private LocalDate effectiveToDate;
+    private LocalDate effectiveFromDate;
+    private Boolean isEffective;
 
     public PostsResponseDto(Posts entity){
 
@@ -32,5 +36,8 @@ public class PostsResponseDto {
         this.userName = entity.getUserName();
         this.userEmail = entity.getUserEmail();
         this.modifiedDate = entity.getModifiedDate();
+        this.effectiveToDate = entity.getEffectiveToDate();
+        this.effectiveFromDate = entity.getEffectiveFromDate();
+        this.isEffective = entity.getIsEffective();
     }
 }

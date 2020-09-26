@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -31,7 +32,9 @@ public class UserController {
 
     @GetMapping("/user/cart")
     public String cart(Model model, @LoginUser SessionUser user) {
-        List<CartsResponseDto> carts = cartsService.findByUserEmail(user.getEmail());
+        List<CartsResponseDto> carts = cartsService.findByUserEmail(user.getEmail()).stream()
+                .filter(t->postsService.findById(t.getItemId()).getIsEffective().compareTo(true)==0)
+                .collect(Collectors.toList());
         model.addAttribute("carts",carts);
         model.addAttribute("cartsIsEmpty",carts.isEmpty());
         model.addAttribute("user",user);
