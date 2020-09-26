@@ -10,7 +10,7 @@
 <hr>
 
 <form id="frm-upload" enctype="multipart/form-data" class="needs-validation">
-    <div style="float:left; height:350px">
+    <div style="float:left; height:350px; width:400px" >
         <div class="input-group-prepend">
             <label for="title"> 사진 </label>
             <p style="color:red; margin-left:2%"> * </p>
@@ -53,6 +53,16 @@
             </div>
             <input type="number" class="form-control" name="count" id="count" placeholder="수량을 입력하세요" min="1" value="1" required>
         </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="effectiveDate"> 판매기한 </label>
+                <p style="color:red; margin-left:2%"> * </p>
+            </div>
+            <input placeholder="판매시작날짜" class="form-control" type="text" onfocus="(this.type='date')" id="effectiveFromDate" name="effectiveFromDate" max="9999-12-31" required>
+            ~
+            <input placeholder="판매종료날짜" class="form-control" type="text" onfocus="(this.type='date')" id="effectiveToDate" name="effectiveToDate" max="9999-12-31" required>
+        </div>
     </div>
 </form>
 
@@ -63,3 +73,5 @@
 </div>
 
 {{>layout/footer}}
+
+<script src="/js/app/validation.js"></script>

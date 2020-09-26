@@ -54,6 +54,16 @@
             <input type="number" class="form-control" id="count" name="count" placeholder="수량을 입력하세요" value="{{post.count}}" min="1" required>
         </div>
 
+        <div class="form-group">
+            <div class="row">
+                <label for="effectiveDate"> 판매기한 </label>
+                <p style="color:red; margin-left:2%"> * </p>
+            </div>
+            <input placeholder="판매시작날짜" class="form-control" type="date" id="effectiveFromDate" name="effectiveFromDate" max="9999-12-31" value="{{post.effectiveFromDate}}" readonly required>
+            ~
+            <input placeholder="판매종료날짜" class="form-control" type="text" onfocus="(this.type='date')" id="effectiveToDate" name="effectiveToDate" max="9999-12-31" value="{{post.effectiveToDate}}" required>
+        </div>
+
         <div class="form-group" hidden>
             <div class="row">
                 <label for="userName"> 작성자 </label>
@@ -75,6 +85,5 @@
 
 
 
-
-
+<script src="/js/app/validation.js"></script>
 {{>layout/footer}}

@@ -1,12 +1,16 @@
 package com.yubron.board.springboot.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yubron.board.springboot.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -20,8 +24,22 @@ public class PostsSaveRequestDto {
     private String userName;
     private String userEmail;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate effectiveFromDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate effectiveToDate;
+
     @Builder
-    public PostsSaveRequestDto(String imgFileUrl, String title, int price, int count, String content, String userName, String userEmail){
+    public PostsSaveRequestDto(String imgFileUrl,
+                               String title,
+                               int price,
+                               int count,
+                               String content,
+                               String userName,
+                               String userEmail,
+                               LocalDate effectiveFromDate,
+                               LocalDate effectiveToDate){
         this.imgFileUrl = imgFileUrl;
         this.title = title;
         this.price = price;
@@ -29,6 +47,8 @@ public class PostsSaveRequestDto {
         this.content = content;
         this.userName = userName;
         this.userEmail = userEmail;
+        this.effectiveFromDate = effectiveFromDate;
+        this.effectiveToDate = effectiveToDate;
     }
 
     public Posts toEntity(){
@@ -40,6 +60,8 @@ public class PostsSaveRequestDto {
                 .content(content)
                 .userName(userName)
                 .userEmail(userEmail)
+                .effectiveFromDate(effectiveFromDate)
+                .effectiveToDate(effectiveToDate)
                 .build();
     }
 }

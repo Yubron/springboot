@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -35,9 +37,15 @@ public class Posts extends BaseTimeEntity {
     private String userEmail;
 
 
+    @Column(nullable = false)
+    private LocalDate effectiveFromDate;
+
+    private LocalDate effectiveToDate;
+
+    private Boolean isEffective;
 
     @Builder
-    public Posts(String imgFileUrl, String title, int price, int count, String content, String userName, String userEmail){
+    public Posts(String imgFileUrl, String title, int price, int count, String content, String userName, String userEmail,LocalDate effectiveFromDate, LocalDate effectiveToDate){
         this.imgFileUrl = imgFileUrl;
         this.title = title;
         this.price = price;
@@ -45,14 +53,22 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
         this.userName = userName;
         this.userEmail = userEmail;
+        this.effectiveFromDate = effectiveFromDate;
+        this.effectiveToDate = effectiveToDate;
+        this.isEffective = true;
+
     }
 
-    public void update(String imgFileUrl, String title, int price, int count, String content) {
+    public void update(String imgFileUrl, String title, int price, int count, String content, LocalDate effectiveToDate) {
         this.imgFileUrl = imgFileUrl;
         this.title = title;
         this.price = price;
         this.count = count;
         this.content = content;
+        this.effectiveToDate = effectiveToDate;
     }
 
+    public void updateIneffective(boolean isEffective) {
+        this.isEffective = isEffective;
+    }
 }
