@@ -71,4 +71,6 @@ public class Posts extends BaseTimeEntity {
     public void updateIneffective(boolean isEffective) {
         this.isEffective = isEffective;
     }
+
+    public void updateCount(int count) { this.count = this.count - count; }
 }

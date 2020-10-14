@@ -63,6 +63,11 @@ public class PostsApiController {
         return postsService.update(id, postsUpdateRequestDto);
     }
 
+    @PutMapping("/api/v1/posts/count/{id}")
+    public Long updateCount(@PathVariable Long id, @RequestParam("count") int count) {
+        return postsService.updateCount(id,count);
+    }
+
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id){
         return postsService.findById(id);

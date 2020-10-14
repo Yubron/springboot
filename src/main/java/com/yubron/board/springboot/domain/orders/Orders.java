@@ -1,19 +1,15 @@
-package com.yubron.board.springboot.domain.carts;
+package com.yubron.board.springboot.domain.orders;
 
-import com.yubron.board.springboot.domain.BaseTimeEntity;
-import com.yubron.board.springboot.service.PostsService;
-import com.yubron.board.springboot.web.dto.PostsResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Carts extends BaseTimeEntity {
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +17,9 @@ public class Carts extends BaseTimeEntity {
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String userEmail;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String userName;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String sellerEmail;
@@ -31,9 +30,6 @@ public class Carts extends BaseTimeEntity {
     @Column(nullable = false)
     private Long itemId;
 
-    @Column(length = 500, nullable = false)
-    private String title;
-
     @Column(nullable = false)
     private int price;
 
@@ -41,22 +37,22 @@ public class Carts extends BaseTimeEntity {
 
     private int totalPrice;
 
-
+    private Boolean isConfirm;
 
     @Builder
-    public Carts(String userEmail, Long itemId, String sellerEmail, String sellerName, String title, int price, int count){
+    public Orders(String userEmail, String userName, String sellerEmail, String sellerName, Long itemId, int price, int count, int totalPrice) {
         this.userEmail = userEmail;
-        this.itemId = itemId;
+        this.userName = userName;
         this.sellerEmail = sellerEmail;
         this.sellerName = sellerName;
-        this.title = title;
+        this.itemId = itemId;
         this.price = price;
         this.count = count;
-        this.totalPrice = price * count;
+        this.totalPrice = totalPrice;
+        this.isConfirm = false;
     }
 
-    public void update(int count) {
-        this.count = count;
-        this.totalPrice = count * this.price;
+    public void updateIsConfirm(boolean isConfirm) {
+        this.isConfirm = isConfirm;
     }
 }

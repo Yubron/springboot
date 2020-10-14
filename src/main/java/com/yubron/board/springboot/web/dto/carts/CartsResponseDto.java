@@ -1,7 +1,6 @@
 package com.yubron.board.springboot.web.dto.carts;
 
 import com.yubron.board.springboot.domain.carts.Carts;
-import com.yubron.board.springboot.service.PostsService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +19,11 @@ public class CartsResponseDto {
     private LocalDateTime modifiedDate;
     private String imgFileUrl;
 
+    private String sellerEmail;
+    private String sellerName;
+
     public CartsResponseDto(Carts entity){
+
         this.id = entity.getId();
         this.userEmail = entity.getUserEmail();
         this.itemId = entity.getItemId();
@@ -29,5 +32,7 @@ public class CartsResponseDto {
         this.count = entity.getCount();
         this.totalPrice = entity.getTotalPrice();
         this.modifiedDate = entity.getModifiedDate();
+        this.sellerEmail = entity.getSellerEmail();
+        this.sellerName = entity.getSellerName();
     }
 }

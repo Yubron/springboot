@@ -40,6 +40,8 @@
     <input type="text" class="form-control" id="title" value="{{post.title}}">
     <input type="text" class="form-control" id="price" value="{{post.price}}">
     <input type="text" class="form-control" id="count" value="{{post.count}}">
+    <input type="text" class="form-control" id="sellerName" value="{{post.userName}}">
+    <input type="text" class="form-control" id="sellerEmail" value="{{post.userEmail}}">
 </div>
 <!-------------------------------------------------------------------------------------------->
 <hr>
@@ -48,7 +50,7 @@
 
     <button type = "button" class="btn btn-outline-danger" id="btn-addCart" style="width:100px; margin-right:2%"> 장바구니 </button>
 
-    <button type = "button" class="btn btn-outline-success" id="btn-purchase" style="width:100px"> 구매하기 </button>
+    <button type = "button" class="btn btn-outline-success" id="btn-order" style="width:100px"> 구매하기 </button>
 
 </div>
 {{/post.isEffective}}

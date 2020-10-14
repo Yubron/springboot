@@ -22,8 +22,8 @@ var main = {
             _this.addCart('addCart');
         });
 
-        $('#btn-purchase').on('click',function(){
-            _this.addCart('purchase');
+        $('#btn-order').on('click',function(){
+            _this.addCart('order');
         });
 
         $('.cartDelete').on('click',function(){
@@ -39,6 +39,15 @@ var main = {
         $('.shopDelete').on('click',function(){
             var id = $(this).closest('tr').data('value');
             _this.delete(id);
+        });
+
+        $('#btn-doOrder').on('click',function() {
+            _this.doOrder();
+        });
+
+        $('.orderConfirm').on('click',function() {
+            var id = $(this).closest('tr').data('value');
+            _this.orderConfirm(id);
         });
     },
     search : function() {
@@ -145,6 +154,8 @@ var main = {
     addCart : function(indicator) {
         var data = {
             userEmail : $('#userEmail').val(),
+            sellerEmail : $('#sellerEmail').val(),
+            sellerName : $('#sellerName').val(),
             itemId : $('#itemId').val(),
             title : $('#title').val(),
             price : $('#price').val(),
@@ -203,11 +214,98 @@ var main = {
         }).fail(function(xhr, status, error){
             alert(JSON.parse(xhr.responseText).message)
         });
-
     },
 
+    orderConfirm : function(id) {
 
+        $.ajax({
+            type:'PUT',
+            url: '/api/v1/order/confirm/'+id,
+        }).done(function(){
+            alert("구매가 확정 되었습니다 !");
+            window.location.href = '/user/orderList';
+        }).fail(function(xhr, status, error){
+            alert(JSON.parse(xhr.responseText).message)
+        });
+    },
 
+    doOrder : function() {
+        var orderList = [];
+        var amount = 0;
+        $('.cartItem').each(function(index) {
+            if($(this).find('.cartCheck').is(":checked")) {
+                amount += Number($(this).find('.totalPrice').text().split('원')[0]);
+                var orderItem = {
+                    userEmail : $('#userEmail').val(),
+                    userName: $('#userName').val(),
+                    sellerEmail : $(this).find('#sellerEmail').val(),
+                    sellerName: $(this).find('#sellerName').val(),
+                    itemId : $(this).find('.itemId').val(),
+                    price : $(this).find('.price').text().split('원')[0],
+                    count : $(this).find('.count').val(),
+                    cartId : $(this).data("value")
+                };
+                orderList.push(orderItem);
+            }
+        });
+
+        var IMP = window.IMP;
+        IMP.init('imp31853069');
+
+        IMP.request_pay({
+            pg: 'kakaopay',
+            pay_method:'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: '번개장터',
+            amount: amount,
+            buyer_email: $('#userEmail').val(),
+            buyer_name: $('#userName').val()
+        }, function (rsp) {
+            console.log('test');
+            if (rsp.success) {
+                var msg = '결제가 완료되었습니다.';
+                msg += '\n결제 금액 : ' + rsp.paid_amount;
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/v1/addOrder',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(orderList)
+                }).done(function() {
+                    alert("구매 완료 되었습니다.");
+                }).fail(function(error){
+                    alert(JSON.stringify(error));
+                });
+
+                orderList.forEach(function(order) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url : '/api/v1/carts/'+order.cartId,
+                        dataType : 'json',
+                        contentType : 'application/json; charset=utf-8'
+                    }).done(function() {
+                    }).fail(function(error) {
+                        alert(JSON.stringify(error));
+                    });
+
+                    $.ajax({
+                        type: 'PUT',
+                        url : '/api/v1/posts/count/'+order.itemId,
+                        data : { count : order.count },
+
+                    }).done(function() {
+                    }).fail(function(error) {
+                        alert(JSON.stringify(error));
+                    });
+                });
+            } else {
+                var msg = '결제에 실패하였습니다.\n';
+                msg += '내용 : ' + rsp.error_msg;
+            }
+            alert(msg);
+            window.location.href = '/user/cart';
+        });
+    },
 
 };
 function readURL(input) {
