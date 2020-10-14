@@ -10,6 +10,7 @@
         <div class="btn-group-vertical">
             <a href="/user/profile" class="btn btn-secondary" role="button">기본정보</a>
             <a href="/user/cart" class="btn btn-secondary" role="button">장바구니</a>
+            <a href="/user/orderList" class="btn btn-secondary" role="button">구매목록</a>
             <a href="" class="btn btn-info" role="button">내 상점</a>
 
         </div>
@@ -25,7 +26,8 @@
             </tr>
             </thead>
             <tbody>
-            {{#posts}}
+            {{#shops}}
+                {{#post}}
                 <tr data-value="{{id}}">
                     <td style="text-align: center;">
                         {{#isEffective}}
@@ -42,12 +44,34 @@
                     </td>
                     <td style="text-align: center;"><button type="button" class="btn btn-outline-danger ml-auto shopDelete" id="btn-delete{{id}}" style="width:70px; margin-right:3%; height:10%"> 삭제 </button></td>
                 </tr>
-            {{/posts}}
-            {{^posts}}
+                {{/post}}
+                <tr>
+                    <td> 구매자 이메일 </td>
+                    <td> 구매자 이름 </td>
+                    <td> 구매 갯수 </td>
+                    <td> 결제 금액 </td>
+                </tr>
+                {{#orders}}
+
+                <tr>
+                    <td> {{userEmail}}</td>
+                    <td> {{userName}}</td>
+                    <td> {{count}}</td>
+                    <td> {{totalPrice}} </td>
+                </tr>
+
+                {{/orders}}
+                {{^orders}}
+                    <td colspan="5" align="center">구매자가 아직 없습니다.</td>
+                {{/orders}}
+
+            {{/shops}}
+
+            {{^shops}}
                 <tr>
                     <td colspan="6" style="text-align:center"><b><br>표시할 항목이 없습니다.</b></td>
                 </tr>
-            {{/posts}}
+            {{/shops}}
             </tbody>
         </table>
         <hr>

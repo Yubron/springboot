@@ -1,0 +1,60 @@
+{{>layout/header}}
+<div class="row" style="margin-top:1%; margin-bottom:-1%">
+    <div class="col-md-2">
+        <h4> 기본 정보 </h4>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-2">
+        <div class="btn-group-vertical">
+            <a href="/user/profile" class="btn btn-secondary" role="button">기본정보</a>
+            <a href="/user/cart" class="btn btn-secondary" role="button">장바구니</a>
+            <a href="" class="btn btn-info" role="button">구매목록</a>
+            <a href="/user/shop" class="btn btn-secondary" role="button">내 상점</a>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="text-align: center;"><input type="checkbox" value="Y" id="allCheck" checked></th>
+                <th style="text-align: center;">상품명</th>
+                <th style="text-align: center;">가격</th>
+                <th style="text-align: center;">수량</th>
+                <th style="text-align: center;">주문금액</th>
+                <th style="text-align: center;"> 구매확정 </th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#orders}}
+                <tr data-value="{{id}}" class="orderList">
+                    <td style="text-align: center;"><input type="checkbox" value="Y" class="cartCheck" checked></td>
+                    <td style="text-align: center;">
+                        <img src="{{imgFileUrl}}" width="70px" height="70px" style="float:left;" >
+
+                        <p style="width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; padding-left:5%"><a href="/posts/detail/{{itemId}}">{{title}}</a></p>
+
+                    </td>
+                    <td style="text-align: center;">{{price}} 원</td>
+                    <td style="text-align: center;">
+                        <input type="number" id="id{{id}}" value="{{id}}" hidden>
+                        <input type="number" id="itemId{{id}}" value="{{itemId}}" hidden>
+                        <input type="number" class="form-control" id="count{{id}}" style="width:30%; display:inherit;" value="{{count}}" min="1"> 개
+                    </td>
+                    <td style="text-align: center;">{{totalPrice}} 원</td>
+                    <td><button type="button" class="btn btn-outline-success ml-auto orderConfirm" id="btn-orderConfirm{{id}}" style="width:55px; margin-right:3%; margin-top:2%; height:10%"> 확정 </button></td>
+
+                </tr>
+            {{/orders}}
+            {{^orders}}
+                <tr>
+                    <td colspan="6" style="text-align:center"><b><br>표시할 항목이 없습니다.</b></td>
+                </tr>
+            {{/orders}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/js/app/multiCheck.js"></script>
+{{>layout/footer}}

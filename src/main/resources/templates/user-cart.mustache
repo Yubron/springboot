@@ -10,6 +10,7 @@
         <div class="btn-group-vertical">
             <a href="/user/profile" class="btn btn-secondary" role="button">기본정보</a>
             <a href="" class="btn btn-info" role="button">장바구니</a>
+            <a href="/user/orderList" class="btn btn-secondary" role="button">구매목록</a>
             <a href="/user/shop" class="btn btn-secondary" role="button">내 상점</a>
 
         </div>
@@ -28,26 +29,33 @@
             </thead>
             <tbody>
             {{#carts}}
-            <tr data-value="{{id}}">
+            <tr data-value="{{id}}" class="cartItem">
                 <td style="text-align: center;"><input type="checkbox" value="Y" class="cartCheck" checked></td>
                 <td style="text-align: center;">
                     <img src="{{imgFileUrl}}" width="70px" height="70px" style="float:left;" >
 
-                    <p style="width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; padding-left:5%"><a href="/posts/detail/{{itemId}}">{{title}}</a></p>
+                    <p style="width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; padding-left:5%"><a href="/posts/detail/{{itemId}}" class="title">{{title}}</a></p>
 
                 </td>
-                <td style="text-align: center;">{{price}} 원</td>
+                <td style="text-align: center;" class="price">{{price}} 원</td>
                 <td style="text-align: center;">
                     <input type="number" id="id{{id}}" value="{{id}}" hidden>
-                    <input type="number" id="itemId{{id}}" value="{{itemId}}" hidden>
-                    <input type="number" class="form-control" id="count{{id}}" style="width:30%; display:inherit;" value="{{count}}" min="1"> 개
+                    <input type="number" id="itemId{{id}}" class="itemId" value="{{itemId}}" hidden>
+                    <input type="number" class="form-control count" id="count{{id}}" style="width:30%; display:inherit;" value="{{count}}" min="1"> 개
                     <br>
                     <button type="button" class="btn btn-outline-success ml-auto cartUpdate" id="btn-cartUpdate{{id}}" style="width:55px; margin-right:3%; margin-top:2%; height:10%"> 수정 </button>
                 </td>
-                <td style="text-align: center;">{{totalPrice}} 원</td>
+                <td style="text-align: center;" class="totalPrice">{{totalPrice}} 원</td>
+
                 <td style="text-align: center;"><button type="button" class="btn btn-outline-danger ml-auto cartDelete" id="btn-cartDelete{{id}}" style="width:70px; margin-right:3%; height:10%"> 삭제 </button></td>
+                <td>
+                    <input type="text" class="form-control" id="sellerName" value="{{sellerName}}" style="display:none">
+                    <input type="text" class="form-control" id="sellerEmail" value="{{sellerEmail}}" style="display:none">
+                </td>
+
 
             </tr>
+
             {{/carts}}
             {{^carts}}
                 <tr>
@@ -59,9 +67,12 @@
 
             {{^cartsIsEmpty}}
                 <hr>
-                <button type="button" class="btn btn-outline-success ml-auto cartUpdate" id="btnPurchase" style="width:100%; margin-top:2%; "> 구매하기 </button>
+                <button type="button" class="btn btn-outline-success ml-auto" id="btn-doOrder" style="width:100%; margin-top:2%; "> 구매하기 </button>
             {{/cartsIsEmpty}}
     </div>
 </div>
 <script src="/js/app/multiCheck.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="/js/app/order.js"></script>
 {{>layout/footer}}

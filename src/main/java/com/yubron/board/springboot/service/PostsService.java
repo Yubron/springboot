@@ -5,6 +5,7 @@ import com.yubron.board.springboot.domain.posts.PostsRepository;
 import com.yubron.board.springboot.web.dto.PostsResponseDto;
 import com.yubron.board.springboot.web.dto.PostsSaveRequestDto;
 import com.yubron.board.springboot.web.dto.PostsUpdateRequestDto;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
@@ -39,6 +40,17 @@ public class PostsService {
             updateIneffective(id);
         } else {
             updateEffective(id);
+        }
+        return id;
+    }
+
+    @Transactional
+    public Long updateCount(Long id, int count) {
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException
+                ("존재하지 않는 상품입니다."));
+        posts.updateCount(count);
+        if(posts.getCount() < 1) {
+            posts.updateIneffective(false);
         }
         return id;
     }
